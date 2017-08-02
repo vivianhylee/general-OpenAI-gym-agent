@@ -12,3 +12,9 @@ Deep Q Network learning (DQN) algorithm is implement with neural network from Ke
 * numpy
 * OpenAI's gym
 * Keras with tensorflow
+* h5py
+
+## Result 
+### LunarLander-v2
+
+
