@@ -17,4 +17,5 @@ Deep Q Network learning (DQN) algorithm is implement with neural network from Ke
 ## Result 
 ### LunarLander-v2
 
+![animation image size reduction](https://github.com/vivianhylee/seam-carving/raw/master/example/image05_video.gif)
 
