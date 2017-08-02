@@ -7,8 +7,6 @@ from keras.optimizers import Adam
 from keras.models import load_model
 
 
-
-
 class DQNAgent:
     def __init__(self, environment, trained_model=None):
         # Initialize constant
@@ -39,17 +37,14 @@ class DQNAgent:
         self.storage = deque(maxlen=self.replay_memory)
         self.sum_reward, self.rewards_lst = 0.0, []
 
-
     def build_model(self):
         # Neural Network for Deep-Q learning Model
         model = Sequential()
         model.add(Dense(200, input_dim=self.state_size, use_bias=True, activation='relu'))
         model.add(Dense(200, use_bias=True, activation='relu'))
         model.add(Dense(self.action_size, use_bias=True, activation='linear'))
-
         model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
         return model
-
 
     def store(self, state, action, reward, next_state, done):
         # Save history to storage for replay
@@ -60,7 +55,6 @@ class DQNAgent:
     def action(self, state, reward, done, episode, training=True):
         # Update cumulative reward
         self.sum_reward += reward
-
         # Episode ends
         if done:
             self.rewards_lst.append(self.sum_reward)
@@ -69,7 +63,6 @@ class DQNAgent:
             self.sum_reward = 0.0
             self.epsilon = max(self.epsilon_decay * self.epsilon, self.epsilon_min)
             return -1
-
         # Return next action
         else:
             cnt_state = np.reshape(state, [1, self.state_size])
@@ -84,18 +77,14 @@ class DQNAgent:
                         action = np.argmax(act_values[0])
                 else:
                     action = self.environment.action_space.sample()
-
             # Run trained agent
             else:
                 act_values = self.model.predict(cnt_state)
                 action = np.argmax(act_values[0])
-
             return action
-
 
     def replay(self):
         minibatch_idx = np.random.permutation(len(self.storage))[: self.replay_size]
-
         states      = np.concatenate([self.storage[i][0] for i in minibatch_idx], axis=0)
         actions     = np.concatenate([self.storage[i][1] for i in minibatch_idx], axis=0)
         rewards     = np.concatenate([self.storage[i][2] for i in minibatch_idx], axis=0)
@@ -107,7 +96,6 @@ class DQNAgent:
 
         qValues_batch = self.model.predict(states)
         qValuesNewState_batch = self.model.predict(next_states)
-
         targetValue_batch = np.copy(rewards)
         targetValue_batch += (1 - dones) * self.gamma * np.amax(qValuesNewState_batch, axis=1)
 
@@ -116,17 +104,17 @@ class DQNAgent:
             Y_sample = qValues_batch[idx]
             Y_sample[actions[idx]] = targetValue
             Y_batch[idx] = Y_sample
-
             if dones[idx]:
                 X_batch = np.append(X_batch, np.reshape(np.copy(next_states[idx]), (1, self.state_size)), axis=0)
                 Y_batch = np.append(Y_batch, np.array([[rewards[idx]] * self.action_size]), axis=0)
-
+                
         self.model.fit(X_batch, Y_batch, batch_size=len(X_batch), nb_epoch=1, verbose=0)
-
 
     def save_model(self, filename):
         self.model.save(filename)
 
-
     def load_model(self, filename):
         return load_model(filename)
+    
+    
+    
