@@ -16,7 +16,8 @@ Deep Q Network learning (DQN) algorithm is implement with neural network from Ke
 
 ## Result 
 ### LunarLander-v2
-
 <img src="https://github.com/vivianhylee/general-OpenAI-gym-agent/blob/master/trained%20agent/LunarLander-v2_video.gif" width="40%" />
 
+### CartPole-v0
+<img src="https://github.com/vivianhylee/general-OpenAI-gym-agent/blob/master/trained%20agent/CartPole-v0_video.gif" width="40%" />
 
