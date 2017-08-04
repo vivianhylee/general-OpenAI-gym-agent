@@ -54,6 +54,7 @@ class DQNAgent:
         new_state = np.reshape(next_state, [1, self.obs_size])
         self.storage.append((cnt_state, np.array([action]), np.array([reward]), new_state, np.array([done])))
 
+        
     def action(self, state, reward, done, episode, training=True):
         # Update cumulative reward
         self.sum_reward += reward
