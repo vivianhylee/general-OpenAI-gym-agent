@@ -1,4 +1,4 @@
-# general-OpenAI-gym-agent
+# General OpenAI Gym Agent
 General OpenAI gym agent trained using Deep Q Network learning (DQN) algorithm 
 
 ## Introduction
