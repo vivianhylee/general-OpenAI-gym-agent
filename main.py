@@ -50,7 +50,7 @@ def run(environment, model_name, key=None):
 
 if __name__ == "__main__":
     environment = 'LunarLander-v2'
-    api_key = "sk_1u0Xao6NSfSBPBuplAbHvg"
+    api_key = ""
     my_model = environment + '_model.h5'
 
     train(environment=environment, key=api_key, model_name=my_model)
